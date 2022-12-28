@@ -21,7 +21,7 @@ import com.project.gameawards.service.GameService;
 @RestController
 @RequestMapping("/games")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class GameController {
+public class GameController extends BaseRestController {
 	
 	@Autowired
 	private GameService businessLayer; //Vai ter acesso apenas as assinaturas do método e não as implementações
