@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,6 +35,14 @@ public class GameController extends BaseRestController {
 		List<Game> games = businessLayer.findAll();
 		return ResponseEntity.ok(games);
 	}
+	
+	//Endpoint que vota em um jogo/game específico
+	@PatchMapping("/{id}/vote")
+	public ResponseEntity<Void> vote(@PathVariable Long id){
+		this.businessLayer.vote(id);
+		return ResponseEntity.ok().build();
+	}
+	
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Game> findById(@PathVariable Long id){

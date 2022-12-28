@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.project.gameawards.model.Game;
@@ -20,7 +22,7 @@ public class GameServiceImpl implements GameService {
 	
 	@Override
 	public List<Game> findAll() {
-		return gameRepository.findAll();
+		return gameRepository.findAll(Sort.by(Direction.DESC, "votes"));
 	}
 
 	@Override
@@ -54,6 +56,14 @@ public class GameServiceImpl implements GameService {
 		Game gameDB = findById(id);
 		gameRepository.delete(gameDB);
 		
+	}
+
+	@Override
+	public void vote(Long id) {
+		Game gameDB = findById(id);
+		gameDB.setVotes(gameDB.getVotes()+1);
+		
+		update(id, gameDB);
 	}
 
 }
